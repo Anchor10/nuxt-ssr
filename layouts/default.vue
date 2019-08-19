@@ -1,5 +1,6 @@
 <template>
   <div>
+    <p>hahaha</p>
     <nuxt/>
   </div>
 </template>
