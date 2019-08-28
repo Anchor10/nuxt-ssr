@@ -12,7 +12,7 @@
         </div>
         <div class="container">
             <div class="article-list">
-                <nuxt-link tag="div" :to="'/detail/'+article.id" class="article-item" v-for="(article, index) of articleList" :key="index">
+                <nuxt-link tag="div" :to="'/detail/'+article.id" class="article-item" v-for="(article, index) of (articleList.slice((currentPage-1)*pageSize,currentPage*pageSize))" :key="index">
                     <div class="article-face">
                         <img :src="article.imgSrc" :alt="article.title">
                     </div>
@@ -28,7 +28,9 @@
                 background
                 layout="prev, pager, next"
                 :hide-on-single-page="pageHide"
-                :total="5">
+                :page-size="pageSize"
+                :total="articleList.length"
+                @current-change="current_change">
             </el-pagination>
         </div>
     </div>
@@ -103,6 +105,9 @@ export default {
         return {
             name: "首页",
             pageHide:false,
+            total:100,
+            pageSize:10,
+            currentPage:1,
             navList:[
                 {
                     url:'',
@@ -123,7 +128,7 @@ export default {
             articleList:[
                 {
                     imgSrc:'http://www.zbboke.com/uploads/180603/1-1P6031F320R0.png',
-                    title:'敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
+                    title:'1敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
                     desc:'很好奇毛总的经历，今天终于知道了点。对于一个40出头的70后，我原本以为就算是我们这个计算机专业的人，也不太可能深通现在的代码。而我又错了。 他的启蒙是在他10岁左右的小县城市少...',
                     id:'1',
                     createdTime:'2019-08-28',
@@ -132,7 +137,7 @@ export default {
                 },
                 {
                     imgSrc:'http://www.zbboke.com/uploads/180603/1-1P6031F320R0.png',
-                    title:'敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
+                    title:'2敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
                     desc:'很好奇毛总的经历，今天终于知道了点。对于一个40出头的70后，我原本以为就算是我们这个计算机专业的人，也不太可能深通现在的代码。而我又错了。 他的启蒙是在他10岁左右的小县城市少...',
                     id:'1',
                     createdTime:'2019-08-28',
@@ -141,7 +146,196 @@ export default {
                 },
                 {
                     imgSrc:'http://www.zbboke.com/uploads/180603/1-1P6031F320R0.png',
-                    title:'敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
+                    title:'3敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
+                    desc:'很好奇毛总的经历，今天终于知道了点。对于一个40出头的70后，我原本以为就算是我们这个计算机专业的人，也不太可能深通现在的代码。而我又错了。 他的启蒙是在他10岁左右的小县城市少...',
+                    id:'1',
+                    createdTime:'2019-08-28',
+                    viewCount:'493',
+                    classid:'1003'
+                },
+                {
+                    imgSrc:'http://www.zbboke.com/uploads/180603/1-1P6031F320R0.png',
+                    title:'4敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
+                    desc:'很好奇毛总的经历，今天终于知道了点。对于一个40出头的70后，我原本以为就算是我们这个计算机专业的人，也不太可能深通现在的代码。而我又错了。 他的启蒙是在他10岁左右的小县城市少...',
+                    id:'1',
+                    createdTime:'2019-08-28',
+                    viewCount:'493',
+                    classid:'1003'
+                },
+                {
+                    imgSrc:'http://www.zbboke.com/uploads/180603/1-1P6031F320R0.png',
+                    title:'5敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
+                    desc:'很好奇毛总的经历，今天终于知道了点。对于一个40出头的70后，我原本以为就算是我们这个计算机专业的人，也不太可能深通现在的代码。而我又错了。 他的启蒙是在他10岁左右的小县城市少...',
+                    id:'1',
+                    createdTime:'2019-08-28',
+                    viewCount:'493',
+                    classid:'1003'
+                },
+                {
+                    imgSrc:'http://www.zbboke.com/uploads/180603/1-1P6031F320R0.png',
+                    title:'6敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
+                    desc:'很好奇毛总的经历，今天终于知道了点。对于一个40出头的70后，我原本以为就算是我们这个计算机专业的人，也不太可能深通现在的代码。而我又错了。 他的启蒙是在他10岁左右的小县城市少...',
+                    id:'1',
+                    createdTime:'2019-08-28',
+                    viewCount:'493',
+                    classid:'1003'
+                },
+                {
+                    imgSrc:'http://www.zbboke.com/uploads/180603/1-1P6031F320R0.png',
+                    title:'7敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
+                    desc:'很好奇毛总的经历，今天终于知道了点。对于一个40出头的70后，我原本以为就算是我们这个计算机专业的人，也不太可能深通现在的代码。而我又错了。 他的启蒙是在他10岁左右的小县城市少...',
+                    id:'1',
+                    createdTime:'2019-08-28',
+                    viewCount:'493',
+                    classid:'1003'
+                },
+                {
+                    imgSrc:'http://www.zbboke.com/uploads/180603/1-1P6031F320R0.png',
+                    title:'8敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
+                    desc:'很好奇毛总的经历，今天终于知道了点。对于一个40出头的70后，我原本以为就算是我们这个计算机专业的人，也不太可能深通现在的代码。而我又错了。 他的启蒙是在他10岁左右的小县城市少...',
+                    id:'1',
+                    createdTime:'2019-08-28',
+                    viewCount:'493',
+                    classid:'1003'
+                },
+                {
+                    imgSrc:'http://www.zbboke.com/uploads/180603/1-1P6031F320R0.png',
+                    title:'9敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
+                    desc:'很好奇毛总的经历，今天终于知道了点。对于一个40出头的70后，我原本以为就算是我们这个计算机专业的人，也不太可能深通现在的代码。而我又错了。 他的启蒙是在他10岁左右的小县城市少...',
+                    id:'1',
+                    createdTime:'2019-08-28',
+                    viewCount:'493',
+                    classid:'1003'
+                },
+                {
+                    imgSrc:'http://www.zbboke.com/uploads/180603/1-1P6031F320R0.png',
+                    title:'10敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
+                    desc:'很好奇毛总的经历，今天终于知道了点。对于一个40出头的70后，我原本以为就算是我们这个计算机专业的人，也不太可能深通现在的代码。而我又错了。 他的启蒙是在他10岁左右的小县城市少...',
+                    id:'1',
+                    createdTime:'2019-08-28',
+                    viewCount:'493',
+                    classid:'1003'
+                },
+                {
+                    imgSrc:'http://www.zbboke.com/uploads/180603/1-1P6031F320R0.png',
+                    title:'11敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
+                    desc:'很好奇毛总的经历，今天终于知道了点。对于一个40出头的70后，我原本以为就算是我们这个计算机专业的人，也不太可能深通现在的代码。而我又错了。 他的启蒙是在他10岁左右的小县城市少...',
+                    id:'1',
+                    createdTime:'2019-08-28',
+                    viewCount:'493',
+                    classid:'1003'
+                },
+                {
+                    imgSrc:'http://www.zbboke.com/uploads/180603/1-1P6031F320R0.png',
+                    title:'12敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
+                    desc:'很好奇毛总的经历，今天终于知道了点。对于一个40出头的70后，我原本以为就算是我们这个计算机专业的人，也不太可能深通现在的代码。而我又错了。 他的启蒙是在他10岁左右的小县城市少...',
+                    id:'1',
+                    createdTime:'2019-08-28',
+                    viewCount:'493',
+                    classid:'1003'
+                },
+                {
+                    imgSrc:'http://www.zbboke.com/uploads/180603/1-1P6031F320R0.png',
+                    title:'13敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
+                    desc:'很好奇毛总的经历，今天终于知道了点。对于一个40出头的70后，我原本以为就算是我们这个计算机专业的人，也不太可能深通现在的代码。而我又错了。 他的启蒙是在他10岁左右的小县城市少...',
+                    id:'1',
+                    createdTime:'2019-08-28',
+                    viewCount:'493',
+                    classid:'1003'
+                },
+                {
+                    imgSrc:'http://www.zbboke.com/uploads/180603/1-1P6031F320R0.png',
+                    title:'14敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
+                    desc:'很好奇毛总的经历，今天终于知道了点。对于一个40出头的70后，我原本以为就算是我们这个计算机专业的人，也不太可能深通现在的代码。而我又错了。 他的启蒙是在他10岁左右的小县城市少...',
+                    id:'1',
+                    createdTime:'2019-08-28',
+                    viewCount:'493',
+                    classid:'1003'
+                },
+                {
+                    imgSrc:'http://www.zbboke.com/uploads/180603/1-1P6031F320R0.png',
+                    title:'15敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
+                    desc:'很好奇毛总的经历，今天终于知道了点。对于一个40出头的70后，我原本以为就算是我们这个计算机专业的人，也不太可能深通现在的代码。而我又错了。 他的启蒙是在他10岁左右的小县城市少...',
+                    id:'1',
+                    createdTime:'2019-08-28',
+                    viewCount:'493',
+                    classid:'1003'
+                },
+                {
+                    imgSrc:'http://www.zbboke.com/uploads/180603/1-1P6031F320R0.png',
+                    title:'16敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
+                    desc:'很好奇毛总的经历，今天终于知道了点。对于一个40出头的70后，我原本以为就算是我们这个计算机专业的人，也不太可能深通现在的代码。而我又错了。 他的启蒙是在他10岁左右的小县城市少...',
+                    id:'1',
+                    createdTime:'2019-08-28',
+                    viewCount:'493',
+                    classid:'1003'
+                },
+                {
+                    imgSrc:'http://www.zbboke.com/uploads/180603/1-1P6031F320R0.png',
+                    title:'17敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
+                    desc:'很好奇毛总的经历，今天终于知道了点。对于一个40出头的70后，我原本以为就算是我们这个计算机专业的人，也不太可能深通现在的代码。而我又错了。 他的启蒙是在他10岁左右的小县城市少...',
+                    id:'1',
+                    createdTime:'2019-08-28',
+                    viewCount:'493',
+                    classid:'1003'
+                },
+                {
+                    imgSrc:'http://www.zbboke.com/uploads/180603/1-1P6031F320R0.png',
+                    title:'18敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
+                    desc:'很好奇毛总的经历，今天终于知道了点。对于一个40出头的70后，我原本以为就算是我们这个计算机专业的人，也不太可能深通现在的代码。而我又错了。 他的启蒙是在他10岁左右的小县城市少...',
+                    id:'1',
+                    createdTime:'2019-08-28',
+                    viewCount:'493',
+                    classid:'1003'
+                },
+                {
+                    imgSrc:'http://www.zbboke.com/uploads/180603/1-1P6031F320R0.png',
+                    title:'19敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
+                    desc:'很好奇毛总的经历，今天终于知道了点。对于一个40出头的70后，我原本以为就算是我们这个计算机专业的人，也不太可能深通现在的代码。而我又错了。 他的启蒙是在他10岁左右的小县城市少...',
+                    id:'1',
+                    createdTime:'2019-08-28',
+                    viewCount:'493',
+                    classid:'1003'
+                },
+                {
+                    imgSrc:'http://www.zbboke.com/uploads/180603/1-1P6031F320R0.png',
+                    title:'20敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
+                    desc:'很好奇毛总的经历，今天终于知道了点。对于一个40出头的70后，我原本以为就算是我们这个计算机专业的人，也不太可能深通现在的代码。而我又错了。 他的启蒙是在他10岁左右的小县城市少...',
+                    id:'1',
+                    createdTime:'2019-08-28',
+                    viewCount:'493',
+                    classid:'1003'
+                },
+                {
+                    imgSrc:'http://www.zbboke.com/uploads/180603/1-1P6031F320R0.png',
+                    title:'21敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
+                    desc:'很好奇毛总的经历，今天终于知道了点。对于一个40出头的70后，我原本以为就算是我们这个计算机专业的人，也不太可能深通现在的代码。而我又错了。 他的启蒙是在他10岁左右的小县城市少...',
+                    id:'1',
+                    createdTime:'2019-08-28',
+                    viewCount:'493',
+                    classid:'1003'
+                },
+                {
+                    imgSrc:'http://www.zbboke.com/uploads/180603/1-1P6031F320R0.png',
+                    title:'22敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
+                    desc:'很好奇毛总的经历，今天终于知道了点。对于一个40出头的70后，我原本以为就算是我们这个计算机专业的人，也不太可能深通现在的代码。而我又错了。 他的启蒙是在他10岁左右的小县城市少...',
+                    id:'1',
+                    createdTime:'2019-08-28',
+                    viewCount:'493',
+                    classid:'1003'
+                },
+                {
+                    imgSrc:'http://www.zbboke.com/uploads/180603/1-1P6031F320R0.png',
+                    title:'23敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
+                    desc:'很好奇毛总的经历，今天终于知道了点。对于一个40出头的70后，我原本以为就算是我们这个计算机专业的人，也不太可能深通现在的代码。而我又错了。 他的启蒙是在他10岁左右的小县城市少...',
+                    id:'1',
+                    createdTime:'2019-08-28',
+                    viewCount:'493',
+                    classid:'1003'
+                },
+                {
+                    imgSrc:'http://www.zbboke.com/uploads/180603/1-1P6031F320R0.png',
+                    title:'24敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
                     desc:'很好奇毛总的经历，今天终于知道了点。对于一个40出头的70后，我原本以为就算是我们这个计算机专业的人，也不太可能深通现在的代码。而我又错了。 他的启蒙是在他10岁左右的小县城市少...',
                     id:'1',
                     createdTime:'2019-08-28',
@@ -149,6 +343,12 @@ export default {
                     classid:'1003'
                 },
             ]
+        }
+    },
+    methods:{
+        current_change(currentPage){
+            this.currentPage = currentPage;
+            window.scrollTo(0,0)
         }
     }
 //   async asyncData({$axios}){
