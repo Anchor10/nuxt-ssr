@@ -21,7 +21,8 @@ export default {
         return{
             title:this.title,
             meta:[
-                {hid:'description', name:'news1',content:'this is news page'}
+                {hid:'description', name:'news1',content:this.title},
+                {hid:'keywords', name:'news2',content:'news2 keywords'},
             ]
         }
     }
