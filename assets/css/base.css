@@ -26,7 +26,7 @@ li {
   zoom: 1;
 }
 .con-width {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 html {
@@ -194,10 +194,6 @@ h6 {
   overflow: hidden;
 }
 /* 关于站长 */
-.author-board {
-  /* 热门文章 */
-  /* 标签 */
-}
 .author-board .author-box {
   height: 80px;
   background: url(../images/author-bg.jpg) no-repeat;
@@ -293,11 +289,12 @@ h6 {
 .author-board .contact-list .contact-item:hover {
   background: #363e49;
 }
-.author-board .hot-board .hot-list {
+/* 热门文章 */
+.hot-board .hot-list {
   box-sizing: border-box;
   padding: 10px 5px;
 }
-.author-board .hot-board .hot-list .hot-item {
+.hot-board .hot-list .hot-item {
   box-sizing: border-box;
   padding: 8px 0px;
   margin: 0 5px;
@@ -306,15 +303,15 @@ h6 {
   text-overflow: ellipsis;
   border-bottom: 1px dashed #bbb;
 }
-.author-board .hot-board .hot-list .hot-item:hover {
+.hot-board .hot-list .hot-item:hover {
   padding-left: 5px;
 }
-.author-board .hot-board .hot-list .hot-item a {
+.hot-board .hot-list .hot-item a {
   box-sizing: border-box;
   display: inline-block;
   padding: 0 5px;
 }
-.author-board .hot-board .hot-list .hot-item i {
+.hot-board .hot-list .hot-item i {
   display: inline-block;
   border-radius: 5px;
   width: 20px;
@@ -325,19 +322,20 @@ h6 {
   font-style: normal;
   color: #fff;
 }
-.author-board .hot-board .hot-list .hot-item:nth-of-type(1) i {
+.hot-board .hot-list .hot-item:nth-of-type(1) i {
   background: #c00;
 }
-.author-board .hot-board .hot-list .hot-item:nth-of-type(2) i {
+.hot-board .hot-list .hot-item:nth-of-type(2) i {
   background: #ef8f31;
 }
-.author-board .hot-board .hot-list .hot-item:nth-of-type(3) i {
+.hot-board .hot-list .hot-item:nth-of-type(3) i {
   background: #6bd139;
 }
-.author-board .tag-board .tag-list {
+/* 标签 */
+.tag-board .tag-list {
   padding: 10px 5px;
 }
-.author-board .tag-board .tag-list a {
+.tag-board .tag-list a {
   display: inline-block;
   padding: 5px 10px;
   margin: 5px 0px 5px 10px;
@@ -345,22 +343,22 @@ h6 {
   border-radius: 5px;
   box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.5) inset;
 }
-.author-board .tag-board .tag-list a:hover {
+.tag-board .tag-list a:hover {
   box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.5);
 }
-.author-board .tag-board .tag-list a:nth-of-type(n) {
+.tag-board .tag-list a:nth-of-type(n) {
   background: #ff9900;
 }
-.author-board .tag-board .tag-list a:nth-of-type(2n) {
+.tag-board .tag-list a:nth-of-type(2n) {
   background: #aaaa00;
 }
-.author-board .tag-board .tag-list a:nth-of-type(3n) {
+.tag-board .tag-list a:nth-of-type(3n) {
   background: #00aaff;
 }
-.author-board .tag-board .tag-list a:nth-of-type(5n) {
+.tag-board .tag-list a:nth-of-type(5n) {
   background: #00ffaa;
 }
-.author-board .tag-board .tag-list a:nth-of-type(7n) {
+.tag-board .tag-list a:nth-of-type(7n) {
   background: #22ff33;
 }
 /* 主体内容结束 */

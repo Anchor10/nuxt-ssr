@@ -4,23 +4,29 @@
         <div class="container">
             <el-carousel :interval="5000" arrow="hover" height="400px">
                 <el-carousel-item v-for="(item, index) of navList" :key="index">
-                    <a :href="item.url" class="banner-pic" :style="{backgroundImage:'url(' + item.pic + ')'}">
+                    <nuxt-link :to="`/detail/${item._id}`" class="banner-pic" :style="{backgroundImage:'url(' + item.banner + ')'}">
                         <p class="banner-title">{{item.title}}</p>
-                    </a>
+                    </nuxt-link>
                 </el-carousel-item>
             </el-carousel>
         </div>
         <div class="container">
+            <div class="section-title">
+                <h3>最新文章</h3>
+            </div>
             <div class="article-list">
-                <nuxt-link tag="div" :to="'/detail/'+article.id" class="article-item" v-for="(article, index) of (articleList.slice((currentPage-1)*pageSize,currentPage*pageSize))" :key="index">
+                <nuxt-link tag="div" :to="'/detail/'+article._id" class="article-item" v-for="(article, index) of (articleList.slice((currentPage-1)*pageSize,currentPage*pageSize))" :key="index">
                     <div class="article-face">
-                        <img :src="article.imgSrc" :alt="article.title">
+                        <img :src="article.banner" :alt="article.title">
                     </div>
                     <div class="article-title">{{article.title}}</div>
-                    <div class="article-desc">{{article.desc}}</div>
+                    <div class="article-desc">{{article.smallText}}</div>
                     <div class="article-info">
+                        <div class="article-categories">
+                            <nuxt-link tag="span" :to="`/category/${item._id}`" v-for="(item, i) of article.categories" :key="i">{{item.name}}</nuxt-link>
+                        </div>
                         <span class="article-view"><i class="el-icon-view"></i>{{article.viewCount}}</span>
-                        <span class="article-date"><i class="el-icon-date"></i>{{article.createdTime}}</span>
+                        <span class="article-date"><i class="el-icon-date"></i>{{article.createdAt | date}}</span>
                     </div>
                 </nuxt-link>
             </div>
@@ -64,21 +70,9 @@
             <h3>热门文章</h3>
         </div>
         <ul class="hot-list">
-            <li class="hot-item">
-                <i>1</i><a href="">什么是盗版主题，合买主题有没有售后？</a>
-            </li>
-            <li class="hot-item">
-                <i>2</i><a href="">什么是盗版主题，合买主题有没有售后？</a>
-            </li>
-            <li class="hot-item">
-                <i>3</i><a href="">什么是盗版主题，合买主题有没有售后？</a>
-            </li>
-            <li class="hot-item">
-                <i>4</i><a href="">什么是盗版主题，合买主题有没有售后？</a>
-            </li>
-            <li class="hot-item">
-                <i>5</i><a href="">什么是盗版主题，合买主题有没有售后？</a>
-            </li>
+            <nuxt-link tag="li" :to="`/detail/${item._id}`" class="hot-item" v-for="(item,i) of navList" :key="i">
+                <i>{{i+1}}</i><a href="">{{item.title}}</a>
+            </nuxt-link>
         </ul>
     </div>
     <div class="container tag-board">
@@ -99,250 +93,20 @@
 </template>
 
 <script>
-
+import dayjs from "dayjs";
 export default {
     data() {
         return {
             name: "首页",
             pageHide:false,
             total:100,
-            pageSize:10,
-            currentPage:1,
-            navList:[
-                {
-                    url:'',
-                    pic:'https://pic.zhuayoukong.com/d/file/news/dongtai/2019-06-06/7f9e7518e6cdd0d720bc96712d447716.jpg',
-                    title:'和女生谈恋爱话题 还不快马一下'
-                },
-                {
-                    url:'',
-                    pic:'https://pic.zhuayoukong.com/d/file/news/dongtai/2019-06-06/4e3384698fd8c7768cabe061bd9da96a.jpg',
-                    title:'谈恋爱的聊天话题 让你们感情升温的必备话题'
-                },
-                {
-                    url:'',
-                    pic:'https://pic.zhuayoukong.com/d/file/news/huodong/2019-06-06/8ba6f52db585ed37bfcc2ef17339b77a.jpg',
-                    title:'怎么谈恋爱技巧 让你快速拥有一场浪漫的夏日约会'
-                },
-            ],
-            articleList:[
-                {
-                    imgSrc:'http://www.zbboke.com/uploads/180603/1-1P6031F320R0.png',
-                    title:'1敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
-                    desc:'很好奇毛总的经历，今天终于知道了点。对于一个40出头的70后，我原本以为就算是我们这个计算机专业的人，也不太可能深通现在的代码。而我又错了。 他的启蒙是在他10岁左右的小县城市少...',
-                    id:'1',
-                    createdTime:'2019-08-28',
-                    viewCount:'493',
-                    classid:'1003'
-                },
-                {
-                    imgSrc:'http://www.zbboke.com/uploads/180603/1-1P6031F320R0.png',
-                    title:'2敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
-                    desc:'很好奇毛总的经历，今天终于知道了点。对于一个40出头的70后，我原本以为就算是我们这个计算机专业的人，也不太可能深通现在的代码。而我又错了。 他的启蒙是在他10岁左右的小县城市少...',
-                    id:'1',
-                    createdTime:'2019-08-28',
-                    viewCount:'493',
-                    classid:'1003'
-                },
-                {
-                    imgSrc:'http://www.zbboke.com/uploads/180603/1-1P6031F320R0.png',
-                    title:'3敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
-                    desc:'很好奇毛总的经历，今天终于知道了点。对于一个40出头的70后，我原本以为就算是我们这个计算机专业的人，也不太可能深通现在的代码。而我又错了。 他的启蒙是在他10岁左右的小县城市少...',
-                    id:'1',
-                    createdTime:'2019-08-28',
-                    viewCount:'493',
-                    classid:'1003'
-                },
-                {
-                    imgSrc:'http://www.zbboke.com/uploads/180603/1-1P6031F320R0.png',
-                    title:'4敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
-                    desc:'很好奇毛总的经历，今天终于知道了点。对于一个40出头的70后，我原本以为就算是我们这个计算机专业的人，也不太可能深通现在的代码。而我又错了。 他的启蒙是在他10岁左右的小县城市少...',
-                    id:'1',
-                    createdTime:'2019-08-28',
-                    viewCount:'493',
-                    classid:'1003'
-                },
-                {
-                    imgSrc:'http://www.zbboke.com/uploads/180603/1-1P6031F320R0.png',
-                    title:'5敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
-                    desc:'很好奇毛总的经历，今天终于知道了点。对于一个40出头的70后，我原本以为就算是我们这个计算机专业的人，也不太可能深通现在的代码。而我又错了。 他的启蒙是在他10岁左右的小县城市少...',
-                    id:'1',
-                    createdTime:'2019-08-28',
-                    viewCount:'493',
-                    classid:'1003'
-                },
-                {
-                    imgSrc:'http://www.zbboke.com/uploads/180603/1-1P6031F320R0.png',
-                    title:'6敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
-                    desc:'很好奇毛总的经历，今天终于知道了点。对于一个40出头的70后，我原本以为就算是我们这个计算机专业的人，也不太可能深通现在的代码。而我又错了。 他的启蒙是在他10岁左右的小县城市少...',
-                    id:'1',
-                    createdTime:'2019-08-28',
-                    viewCount:'493',
-                    classid:'1003'
-                },
-                {
-                    imgSrc:'http://www.zbboke.com/uploads/180603/1-1P6031F320R0.png',
-                    title:'7敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
-                    desc:'很好奇毛总的经历，今天终于知道了点。对于一个40出头的70后，我原本以为就算是我们这个计算机专业的人，也不太可能深通现在的代码。而我又错了。 他的启蒙是在他10岁左右的小县城市少...',
-                    id:'1',
-                    createdTime:'2019-08-28',
-                    viewCount:'493',
-                    classid:'1003'
-                },
-                {
-                    imgSrc:'http://www.zbboke.com/uploads/180603/1-1P6031F320R0.png',
-                    title:'8敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
-                    desc:'很好奇毛总的经历，今天终于知道了点。对于一个40出头的70后，我原本以为就算是我们这个计算机专业的人，也不太可能深通现在的代码。而我又错了。 他的启蒙是在他10岁左右的小县城市少...',
-                    id:'1',
-                    createdTime:'2019-08-28',
-                    viewCount:'493',
-                    classid:'1003'
-                },
-                {
-                    imgSrc:'http://www.zbboke.com/uploads/180603/1-1P6031F320R0.png',
-                    title:'9敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
-                    desc:'很好奇毛总的经历，今天终于知道了点。对于一个40出头的70后，我原本以为就算是我们这个计算机专业的人，也不太可能深通现在的代码。而我又错了。 他的启蒙是在他10岁左右的小县城市少...',
-                    id:'1',
-                    createdTime:'2019-08-28',
-                    viewCount:'493',
-                    classid:'1003'
-                },
-                {
-                    imgSrc:'http://www.zbboke.com/uploads/180603/1-1P6031F320R0.png',
-                    title:'10敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
-                    desc:'很好奇毛总的经历，今天终于知道了点。对于一个40出头的70后，我原本以为就算是我们这个计算机专业的人，也不太可能深通现在的代码。而我又错了。 他的启蒙是在他10岁左右的小县城市少...',
-                    id:'1',
-                    createdTime:'2019-08-28',
-                    viewCount:'493',
-                    classid:'1003'
-                },
-                {
-                    imgSrc:'http://www.zbboke.com/uploads/180603/1-1P6031F320R0.png',
-                    title:'11敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
-                    desc:'很好奇毛总的经历，今天终于知道了点。对于一个40出头的70后，我原本以为就算是我们这个计算机专业的人，也不太可能深通现在的代码。而我又错了。 他的启蒙是在他10岁左右的小县城市少...',
-                    id:'1',
-                    createdTime:'2019-08-28',
-                    viewCount:'493',
-                    classid:'1003'
-                },
-                {
-                    imgSrc:'http://www.zbboke.com/uploads/180603/1-1P6031F320R0.png',
-                    title:'12敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
-                    desc:'很好奇毛总的经历，今天终于知道了点。对于一个40出头的70后，我原本以为就算是我们这个计算机专业的人，也不太可能深通现在的代码。而我又错了。 他的启蒙是在他10岁左右的小县城市少...',
-                    id:'1',
-                    createdTime:'2019-08-28',
-                    viewCount:'493',
-                    classid:'1003'
-                },
-                {
-                    imgSrc:'http://www.zbboke.com/uploads/180603/1-1P6031F320R0.png',
-                    title:'13敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
-                    desc:'很好奇毛总的经历，今天终于知道了点。对于一个40出头的70后，我原本以为就算是我们这个计算机专业的人，也不太可能深通现在的代码。而我又错了。 他的启蒙是在他10岁左右的小县城市少...',
-                    id:'1',
-                    createdTime:'2019-08-28',
-                    viewCount:'493',
-                    classid:'1003'
-                },
-                {
-                    imgSrc:'http://www.zbboke.com/uploads/180603/1-1P6031F320R0.png',
-                    title:'14敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
-                    desc:'很好奇毛总的经历，今天终于知道了点。对于一个40出头的70后，我原本以为就算是我们这个计算机专业的人，也不太可能深通现在的代码。而我又错了。 他的启蒙是在他10岁左右的小县城市少...',
-                    id:'1',
-                    createdTime:'2019-08-28',
-                    viewCount:'493',
-                    classid:'1003'
-                },
-                {
-                    imgSrc:'http://www.zbboke.com/uploads/180603/1-1P6031F320R0.png',
-                    title:'15敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
-                    desc:'很好奇毛总的经历，今天终于知道了点。对于一个40出头的70后，我原本以为就算是我们这个计算机专业的人，也不太可能深通现在的代码。而我又错了。 他的启蒙是在他10岁左右的小县城市少...',
-                    id:'1',
-                    createdTime:'2019-08-28',
-                    viewCount:'493',
-                    classid:'1003'
-                },
-                {
-                    imgSrc:'http://www.zbboke.com/uploads/180603/1-1P6031F320R0.png',
-                    title:'16敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
-                    desc:'很好奇毛总的经历，今天终于知道了点。对于一个40出头的70后，我原本以为就算是我们这个计算机专业的人，也不太可能深通现在的代码。而我又错了。 他的启蒙是在他10岁左右的小县城市少...',
-                    id:'1',
-                    createdTime:'2019-08-28',
-                    viewCount:'493',
-                    classid:'1003'
-                },
-                {
-                    imgSrc:'http://www.zbboke.com/uploads/180603/1-1P6031F320R0.png',
-                    title:'17敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
-                    desc:'很好奇毛总的经历，今天终于知道了点。对于一个40出头的70后，我原本以为就算是我们这个计算机专业的人，也不太可能深通现在的代码。而我又错了。 他的启蒙是在他10岁左右的小县城市少...',
-                    id:'1',
-                    createdTime:'2019-08-28',
-                    viewCount:'493',
-                    classid:'1003'
-                },
-                {
-                    imgSrc:'http://www.zbboke.com/uploads/180603/1-1P6031F320R0.png',
-                    title:'18敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
-                    desc:'很好奇毛总的经历，今天终于知道了点。对于一个40出头的70后，我原本以为就算是我们这个计算机专业的人，也不太可能深通现在的代码。而我又错了。 他的启蒙是在他10岁左右的小县城市少...',
-                    id:'1',
-                    createdTime:'2019-08-28',
-                    viewCount:'493',
-                    classid:'1003'
-                },
-                {
-                    imgSrc:'http://www.zbboke.com/uploads/180603/1-1P6031F320R0.png',
-                    title:'19敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
-                    desc:'很好奇毛总的经历，今天终于知道了点。对于一个40出头的70后，我原本以为就算是我们这个计算机专业的人，也不太可能深通现在的代码。而我又错了。 他的启蒙是在他10岁左右的小县城市少...',
-                    id:'1',
-                    createdTime:'2019-08-28',
-                    viewCount:'493',
-                    classid:'1003'
-                },
-                {
-                    imgSrc:'http://www.zbboke.com/uploads/180603/1-1P6031F320R0.png',
-                    title:'20敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
-                    desc:'很好奇毛总的经历，今天终于知道了点。对于一个40出头的70后，我原本以为就算是我们这个计算机专业的人，也不太可能深通现在的代码。而我又错了。 他的启蒙是在他10岁左右的小县城市少...',
-                    id:'1',
-                    createdTime:'2019-08-28',
-                    viewCount:'493',
-                    classid:'1003'
-                },
-                {
-                    imgSrc:'http://www.zbboke.com/uploads/180603/1-1P6031F320R0.png',
-                    title:'21敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
-                    desc:'很好奇毛总的经历，今天终于知道了点。对于一个40出头的70后，我原本以为就算是我们这个计算机专业的人，也不太可能深通现在的代码。而我又错了。 他的启蒙是在他10岁左右的小县城市少...',
-                    id:'1',
-                    createdTime:'2019-08-28',
-                    viewCount:'493',
-                    classid:'1003'
-                },
-                {
-                    imgSrc:'http://www.zbboke.com/uploads/180603/1-1P6031F320R0.png',
-                    title:'22敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
-                    desc:'很好奇毛总的经历，今天终于知道了点。对于一个40出头的70后，我原本以为就算是我们这个计算机专业的人，也不太可能深通现在的代码。而我又错了。 他的启蒙是在他10岁左右的小县城市少...',
-                    id:'1',
-                    createdTime:'2019-08-28',
-                    viewCount:'493',
-                    classid:'1003'
-                },
-                {
-                    imgSrc:'http://www.zbboke.com/uploads/180603/1-1P6031F320R0.png',
-                    title:'23敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
-                    desc:'很好奇毛总的经历，今天终于知道了点。对于一个40出头的70后，我原本以为就算是我们这个计算机专业的人，也不太可能深通现在的代码。而我又错了。 他的启蒙是在他10岁左右的小县城市少...',
-                    id:'1',
-                    createdTime:'2019-08-28',
-                    viewCount:'493',
-                    classid:'1003'
-                },
-                {
-                    imgSrc:'http://www.zbboke.com/uploads/180603/1-1P6031F320R0.png',
-                    title:'24敬佩这位70后还在为梦想做坚持的他，我跟你携手共进',
-                    desc:'很好奇毛总的经历，今天终于知道了点。对于一个40出头的70后，我原本以为就算是我们这个计算机专业的人，也不太可能深通现在的代码。而我又错了。 他的启蒙是在他10岁左右的小县城市少...',
-                    id:'1',
-                    createdTime:'2019-08-28',
-                    viewCount:'493',
-                    classid:'1003'
-                },
-            ]
+            pageSize:2,
+            currentPage:1
+        }
+    },
+    filters:{
+        date(val){
+            return dayjs(val).format("YYYY-MM-DD");
         }
     },
     methods:{
@@ -350,16 +114,19 @@ export default {
             this.currentPage = currentPage;
             window.scrollTo(0,0)
         }
-    }
-//   async asyncData({$axios}){
-//       const {data} = await $axios.get('https://api.myjson.com/bins/61gyv')
-//       return {navList:data}
-//   }
+    },
+  async asyncData({$axios}){
+      const {data} = await $axios.get('http://localhost:3000/web/api/news/new')
+      return {articleList:data,
+      navList:data.slice(0,5)}
+  }
 }
 </script>
 
 <style lang="less">
-
+    .page{
+        padding: 10px 0;
+    }
     .banner-pic{
         position: relative;
         display: block;
@@ -452,6 +219,16 @@ export default {
               i{
                   margin-right: 5px;
               }
+              .article-categories{
+                  flex: 1;
+                  span{
+                      border: 1px solid #aaa;
+                      padding: 0 10px;
+                      margin-right: 5px;
+                      border-radius: 5px;
+
+                  }
+              }
               .article-view{
                   text-align: left;
               }
@@ -462,8 +239,9 @@ export default {
           &:hover{
               background: #f3f3f3;
               .article-title{
-                  color: #222;
-                  font-size: 18px;
+                    color: #222;
+                    font-size: 18px;
+                    text-shadow:0 0 6px skyblue, -1px -1px  #FFF, 1px -1px  #444;
               }
               .article-face{
                     transform: scale(1.05);
