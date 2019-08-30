@@ -100,7 +100,7 @@ export default {
             name: "首页",
             pageHide:false,
             total:100,
-            pageSize:2,
+            pageSize:5,
             currentPage:1
         }
     },

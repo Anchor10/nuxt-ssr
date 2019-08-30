@@ -50,7 +50,8 @@ module.exports = {
         })
       }
     },
-    vendor:['element-ui']   //防止element-ui被打包多次
+    vendor:['element-ui'],   //防止element-ui被打包多次
+    extractCSS: { allChunks: true }
   }
 }
 
