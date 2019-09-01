@@ -14,10 +14,12 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
-  plugins: [{
+  plugins: [
+    {
     src: '~plugins/ElementUI',
     ssr: true,
-  }],
+  }
+],
   css:[
     'element-ui/lib/theme-chalk/index.css',
     '~assets/css/base.css'
@@ -50,8 +52,11 @@ module.exports = {
         })
       }
     },
-    vendor:['element-ui'],   //防止element-ui被打包多次
+    vendor:['element-ui', 'axios'],   //防止element-ui被打包多次
     extractCSS: { allChunks: true }
+  },
+  env: {
+    baseUrl: process.env.BASE_URL || '/web/api'
   }
 }
 
