@@ -1,4 +1,22 @@
+const axios = require('axios')
+
 module.exports = {
+
+  // generate
+  generate: {
+    routes: function() {
+      return axios.get('http://localhost:3000/web/api/news/new')
+      .then((res) => {
+        return res.data.map((article) => {
+          return {
+            route: '/detail/' + article._id,
+            payload: article
+          }
+        })
+      })
+    }
+  },
+
   /*
   ** Headers of the page
   */
@@ -34,7 +52,22 @@ module.exports = {
 
   modules: [
     '@nuxtjs/axios',
+    "@nuxtjs/proxy"
   ],
+  axios: {
+    retry: { retries: 3 },
+    debug: process.env._ENV == "production" ? false : true,
+    baseURL:process.env._ENV == "produnction"
+    ? "http://mitusir.top"
+    : "http://localhost:3000",
+    withCredentials: true,
+  },
+  proxy: {
+    "/api/": {
+      target: "http://localhost:3000",
+      pathRewrite: { "/web/api": "" }
+    }
+  },
   /*
   ** Build configuration
   */
