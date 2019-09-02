@@ -23,7 +23,7 @@ export default {
       }
    },
    async asyncData({$axios, params}) {
-      const data = await $axios.get(`http://localhost:3000/web/api/articles/${params.id}`)
+      const data = await $axios.get(`/articles/${params.id}`)
       return {article:data.data}
    }
 }

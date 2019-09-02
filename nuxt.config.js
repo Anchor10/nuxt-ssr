@@ -4,8 +4,10 @@ module.exports = {
 
   // generate
   generate: {
+    dir: 'web',
+    subFolders: false,//为每个路由生成一个index.html=>关掉
     routes: function() {
-      return axios.get('http://localhost:3000/web/api/news/new')
+      return axios.get(process.env.baseUrl + '/news/new')
       .then((res) => {
         return res.data.map((article) => {
           return {
@@ -36,7 +38,9 @@ module.exports = {
     {
     src: '~plugins/ElementUI',
     ssr: true,
-  }
+  },
+  '~/plugins/route',
+  '~/plugins/axios'
 ],
   css:[
     'element-ui/lib/theme-chalk/index.css',
@@ -45,29 +49,27 @@ module.exports = {
   /*
   ** Customize the progress bar color
   */
-  loading: {
-    color: 'skyblue',
-  },
+  loading: '~/components/loading.vue',
 
 
   modules: [
     '@nuxtjs/axios',
-    "@nuxtjs/proxy"
+    // "@nuxtjs/proxy"
   ],
-  axios: {
-    retry: { retries: 3 },
-    debug: process.env._ENV == "production" ? false : true,
-    baseURL:process.env._ENV == "produnction"
-    ? "http://mitusir.top"
-    : "http://localhost:3000",
-    withCredentials: true,
-  },
-  proxy: {
-    "/api/": {
-      target: "http://localhost:3000",
-      pathRewrite: { "/web/api": "" }
-    }
-  },
+  // axios: {
+  //   retry: { retries: 3 },
+  //   debug: process.env._ENV == "production" ? false : true,
+  //   baseURL:process.env._ENV == "produnction"
+  //   ? "http://mitusir.top"
+  //   : "http://localhost:3000/web/api",
+  //   withCredentials: true,
+  // },
+  // proxy: {
+  //   "/api/": {
+  //     target: "http://localhost:3000",
+  //     pathRewrite: { "/web/api": "" }
+  //   }
+  // },
   /*
   ** Build configuration
   */
@@ -88,8 +90,9 @@ module.exports = {
     vendor:['element-ui', 'axios'],   //防止element-ui被打包多次
     extractCSS: { allChunks: true }
   },
-  env: {
-    baseUrl: process.env.BASE_URL || '/web/api'
-  }
+  // env: {
+  //   baseUrl: process.env.BASE_URL || 'http://localhost:3000/web/api'
+  // }
+
 }
 

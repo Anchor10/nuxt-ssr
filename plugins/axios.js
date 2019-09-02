@@ -1,4 +1,5 @@
-import axios from 'axios'
-export default axios.create({
-    baseURL: process.env.baseUrl || '/web/api'
-})
+
+
+export default ({app:{ $axios }}) => {
+    $axios.defaults.baseURL = process.env.baseUrl || '/web/api'
+}

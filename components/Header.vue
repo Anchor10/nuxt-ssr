@@ -14,22 +14,22 @@
                             </li>
                             <li class="nav-item">
                                 <nuxt-link to="/news">
-                                    <i class="iconfont icon-JS"></i> 免费游戏
+                                    <i class="iconfont icon-JS"></i> 恋爱技巧
                                 </nuxt-link>
                             </li>
                             <li class="nav-item">
                                 <nuxt-link to="/about">
-                                    <i class="iconfont icon-vuejs"></i> 资讯
+                                    <i class="iconfont icon-vuejs"></i> 撩妹套路
                                 </nuxt-link>
                             </li>
                             <li class="nav-item">
                                 <nuxt-link to="/categories">
-                                    <i class="iconfont icon-nodejs"></i> 专题
+                                    <i class="iconfont icon-nodejs"></i> 聊天技巧
                                 </nuxt-link>
                             </li>
                             <li class="nav-item">
                                 <nuxt-link to="/user">
-                                    <i class="iconfont icon-mongodb"></i> 排行
+                                    <i class="iconfont icon-mongodb"></i> 挽回爱情
                                 </nuxt-link>
                             </li>
                             <li class="nav-item">

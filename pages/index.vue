@@ -70,9 +70,9 @@
             <h3>热门文章</h3>
         </div>
         <ul class="hot-list">
-            <nuxt-link tag="li" :to="`/detail/${item._id}`" class="hot-item" v-for="(item,i) of navList" :key="i">
-                <i>{{i+1}}</i><a href="">{{item.title}}</a>
-            </nuxt-link>
+            <li class="hot-item" v-for="(item,i) of navList" :key="i">
+                <i>{{i+1}}</i><a :href="`/detail/${item._id}`">{{item.title}}</a>
+            </li>
         </ul>
     </div>
     <div class="container tag-board">
@@ -94,6 +94,7 @@
 
 <script>
 import dayjs from "dayjs";
+import axios from "~/plugins/axios.js"
 export default {
     data() {
         return {
@@ -116,7 +117,7 @@ export default {
         }
     },
   async asyncData({$axios}){
-      const {data} = await $axios.get('http://localhost:3000/web/api/news/new')
+      const {data} = await $axios.get('news/new')
       return {articleList:data,
       navList:data.slice(0,5)}
   }
