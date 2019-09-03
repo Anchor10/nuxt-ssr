@@ -1,6 +1,7 @@
 const axios = require('axios')
 
 module.exports = {
+  mode: 'universal',
 
   // generate
   generate: {
@@ -57,17 +58,14 @@ module.exports = {
     // "@nuxtjs/proxy"
   ],
   // axios: {
-  //   retry: { retries: 3 },
-  //   debug: process.env._ENV == "production" ? false : true,
-  //   baseURL:process.env._ENV == "produnction"
-  //   ? "http://mitusir.top"
-  //   : "http://localhost:3000/web/api",
-  //   withCredentials: true,
+  //   proxy: true
   // },
   // proxy: {
-  //   "/api/": {
+  //   "/web/api/": {
   //     target: "http://localhost:3000",
-  //     pathRewrite: { "/web/api": "" }
+  //     pathRewrite: {
+  //       '^/web/api': '/'
+  //     }
   //   }
   // },
   /*
@@ -90,9 +88,9 @@ module.exports = {
     vendor:['element-ui', 'axios'],   //防止element-ui被打包多次
     extractCSS: { allChunks: true }
   },
-  // env: {
-  //   baseUrl: process.env.BASE_URL || 'http://localhost:3000/web/api'
-  // }
+  env: {
+    baseUrl: process.env.BASE_URL || 'http://localhost:3000/web/api'
+  }
 
 }
 

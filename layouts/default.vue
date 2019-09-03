@@ -13,7 +13,7 @@ import Footer from '../components/Footer.vue'
 export default {
   head: {
     link: [
-      { rel: 'stylesheet', href: 'https://at.alicdn.com/t/font_1220616_bnzancnfus8.css' }
+      { rel: 'stylesheet', href: 'https://at.alicdn.com/t/font_1220616_vmgdgps1ab.css' }
     ]
   },
   components:{
