@@ -41,7 +41,8 @@ module.exports = {
     ssr: true,
   },
   '~/plugins/route',
-  '~/plugins/axios'
+  '~/plugins/axios',
+  '~/plugins/filter'
 ],
   css:[
     'element-ui/lib/theme-chalk/index.css',
@@ -50,9 +51,9 @@ module.exports = {
   /*
   ** Customize the progress bar color
   */
-  loading: '~/components/loading.vue',
-
-
+  loading: {
+    color: 'skyblue'
+  },
   modules: [
     '@nuxtjs/axios',
     // "@nuxtjs/proxy"

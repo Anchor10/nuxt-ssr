@@ -2,7 +2,7 @@
   <div class="main">
     <div class="content">
         <div class="container">
-            <el-carousel :interval="5000" arrow="hover" height="400px">
+            <el-carousel :interval="5000" trigger="click" arrow="hover" height="400px">
                 <el-carousel-item v-for="(item, index) of navList" :key="index">
                     <nuxt-link :to="`/detail/${item._id}`" class="banner-pic" :style="{backgroundImage:'url(' + item.banner + ')'}">
                         <p class="banner-title">{{item.title}}</p>
@@ -93,7 +93,6 @@
 </template>
 
 <script>
-import dayjs from "dayjs";
 import axios from "~/plugins/axios.js"
 export default {
     data() {
@@ -105,19 +104,14 @@ export default {
             currentPage:1
         }
     },
-    filters:{
-        date(val){
-            return dayjs(val).format("YYYY-MM-DD");
-        }
-    },
     methods:{
         current_change(currentPage){
             this.currentPage = currentPage;
-            window.scrollTo(0,0)
         }
     },
+    scrollToTop:true,
   async asyncData({$axios}){
-      const {data} = await $axios.get('news/new')
+      const {data} = await $axios.get(`${process.env.baseUrl}/news/new`)
       return {articleList:data,
       navList:data.slice(0,5)}
   }
@@ -186,12 +180,8 @@ export default {
               overflow: hidden;
               img{
                   display: block;
-                  position: absolute;
-                  left: 0;
-                  top: 50%;
-                  transform: translateY(-50%);
-                  min-height: 120px;
-                  max-width: 200px;
+                  width: 100%;
+                  height: 100%;
               }
           }
           .article-title{
@@ -209,7 +199,7 @@ export default {
               display: -webkit-box;
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
-            font-size: 12px;
+            font-size: 14px;
             color: #666;
           }
           .article-info{
@@ -227,7 +217,11 @@ export default {
                       padding: 0 10px;
                       margin-right: 5px;
                       border-radius: 5px;
-
+                    &:hover{
+                        background: skyblue;
+                        color: #fff;
+                        border-color: skyblue;
+                    }
                   }
               }
               .article-view{
@@ -245,8 +239,10 @@ export default {
                     text-shadow:0 0 6px skyblue, -1px -1px  #FFF, 1px -1px  #444;
               }
               .article-face{
-                    transform: scale(1.05);
-                    box-shadow: 0 2px 4px 1px rgba(0,0,0,0.3);
+                    img{
+                        transform: scale(1.1);
+                        transform-origin: center;
+                    }
               }
           }
       }
