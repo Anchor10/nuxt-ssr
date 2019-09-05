@@ -5,14 +5,16 @@
             <div class="position section-title">
                <i class="iconfont icon-position02"></i><a href="/">首页</a><i class="iconfont icon-ic_arrow_r"></i><span>{{article.title}}</span>
             </div>
-            <div class="article-top">
-               <div class="article-title">{{article.title}}</div>
-               <div class="article-info">
-                  <span>{{article.createdAt | date}}</span>
-                  <span>{{article.viewCount}}</span>
+            <div class="article">
+               <div class="article-top">
+                  <div class="article-title">{{article.title}}</div>
+                  <div class="article-info">
+                     <span><i class="el-icon-view"></i>{{article.viewCount}}</span>
+                     <span><i class="el-icon-date"></i>{{article.createdAt | date}}</span>
+                  </div>
                </div>
+               <div class="article-content" v-html="article.body"></div>
             </div>
-            <div class="article-content" v-html="article.body"></div>
             <div class="prev-next">
                <div class="item" v-if="article.prev">上一篇: <nuxt-link :to="'/detail/'+article.prev._id">{{article.prev.title}}</nuxt-link></div>
                <div class="item" v-if="article.next">下一篇: <nuxt-link :to="'/detail/'+article.next._id">{{article.next.title}}</nuxt-link></div>
@@ -49,7 +51,7 @@
             <h3>热门文章</h3>
         </div>
         <ul class="hot-list">
-            <li class="hot-item" v-for="(item,i) of navList" :key="i">
+            <li class="hot-item" v-for="(item,i) of hotList" :key="i">
                 <i>{{i+1}}</i><a :href="`/detail/${item._id}`">{{item.title}}</a>
             </li>
         </ul>
@@ -80,11 +82,11 @@ export default {
    },
    scrollToTop:true,
    async asyncData({$axios, params}) {
-      const data = await $axios.get(`${process.env.baseUrl}/articles/${params.id}`)
-      data.navList = await $axios.get(`${process.env.baseUrl}/news/new`)
+      const article = await $axios.get(`${process.env.baseUrl}/articles/${params.id}`)
+      const hotList = await $axios.get(`${process.env.baseUrl}/news/hot`)
       return {
-         article: data.data,
-         navList: data.navList.data.slice(0,5)
+         article: article.data,
+         hotList: hotList.data
       }
    }
 }
@@ -106,24 +108,36 @@ export default {
          top: 1px;
       }
    }
+   .article{
+      padding: 20px 25px;
+   }
    .article-top{
       box-sizing: border-box;
       padding: 10px;
+      border-bottom: 1px dashed #ddd;
       .article-title{
          font-size: 22px;
+         line-height: 40px;
          font-weight: 700;
          color: #333;
          text-align: center;
       }
       .article-info{
+         margin-top: 10px;
          display: flex;
          justify-content: center;
+         font-size: 12px;
+         i{
+            margin-right: 5px;
+         }
+         span{
+            margin: 0 10px;
+         }
       }
       
    }
    .article-content{
       box-sizing: border-box;
-      padding: 15px;
       font-size: 16px;
       line-height: 24px;
       color: #333;

@@ -5,7 +5,7 @@
   "author": "mitusir",
   "private": true,
   "scripts": {
-    "dev": "cross-env BASE_URL=http://localhost:3000/web/api nuxt",
+    "dev": "cross-env BASE_URL=http://www.mitusir.top/web/api nuxt",
     "build": "cross-env BASE_URL=http://www.mitusir.top/web/api nuxt build",
     "start": "nuxt start",
     "generate": "cross-env BASE_URL=http://localhost:3000/web/api nuxt generate",

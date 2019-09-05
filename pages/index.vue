@@ -3,10 +3,10 @@
     <div class="content">
         <div class="container">
             <el-carousel :interval="5000" trigger="click" arrow="hover" height="400px">
-                <el-carousel-item v-for="(item, index) of navList" :key="index">
-                    <nuxt-link :to="`/detail/${item._id}`" class="banner-pic" :style="{backgroundImage:'url(' + item.banner + ')'}">
+                <el-carousel-item v-for="(item, index) of bannerList" :key="index">
+                    <a :href="item.url" class="banner-pic" :style="{backgroundImage:'url(' + item.image + ')'}">
                         <p class="banner-title">{{item.title}}</p>
-                    </nuxt-link>
+                    </a>
                 </el-carousel-item>
             </el-carousel>
         </div>
@@ -70,7 +70,7 @@
             <h3>热门文章</h3>
         </div>
         <ul class="hot-list">
-            <li class="hot-item" v-for="(item,i) of navList" :key="i">
+            <li class="hot-item" v-for="(item,i) of hotList" :key="i">
                 <i>{{i+1}}</i><a :href="`/detail/${item._id}`">{{item.title}}</a>
             </li>
         </ul>
@@ -89,6 +89,7 @@
         </div>
     </div>
     </div>
+    
   </div>
 </template>
 
@@ -111,9 +112,14 @@ export default {
     },
     scrollToTop:true,
   async asyncData({$axios}){
-      const {data} = await $axios.get(`${process.env.baseUrl}/news/new`)
-      return {articleList:data,
-      navList:data.slice(0,5)}
+      const articleList = await $axios.get(`${process.env.baseUrl}/news/new`)
+      const bannerList = await $axios.get(`${process.env.baseUrl}/banner/index`)
+      const hotList = await $axios.get(`${process.env.baseUrl}/news/hot`)
+      return {
+            articleList: articleList.data,
+            hotList: hotList.data,
+            bannerList: bannerList.data.items
+        }
   }
 }
 </script>
@@ -226,6 +232,7 @@ export default {
               }
               .article-view{
                   text-align: left;
+                  margin-right: 10px;
               }
               .article-date{
                   text-align: right;
